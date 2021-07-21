@@ -28,7 +28,7 @@ import android.widget.Toast;
 public class DuerBotPlugin extends CordovaPlugin {
     DuerBot duerBot;
     CallbackContext initCallbackContext;
-    CallbackContext initHandlerCallbackContext;
+    CallbackContext addHandlerCallbackContext;
     private static final String TAG = "DuerBotPlugin";
 
     @Override
@@ -47,17 +47,17 @@ public class DuerBotPlugin extends CordovaPlugin {
             String txt = data.getString(0);
             this.duerBot.speak(txt);
             return true;
-        } else if (action.equals("listen")) {
-            this.duerBot.listen();
-            return true;
-        } else if (action.equals("initDuerBotHandler")) {
-            initHandlerCallbackContext = callbackContext;
-            this.duerBot.initDuerBotHandler(initHandlerCallbackContext);
+        } else if (action.equals("addDuerBotHandler")) {
+            addHandlerCallbackContext = callbackContext;
+            this.duerBot.addDuerBotHandler(addHandlerCallbackContext);
             PluginResult pluginresult = new PluginResult(PluginResult.Status.NO_RESULT);
             pluginresult.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginresult);
             return true;
-        } else {
+        } else if(action.equals("removeDuerBotHandler")) {
+            this.duerBot.removeDuerBotHandler(callbackContext);
+            return true;
+        }else {
             return false;
         }
     }
@@ -102,26 +102,26 @@ class DuerBot {
 
     }
 
-    public void initDuerBotHandler(CallbackContext callbackContext) {
+    public void addDuerBotHandler(CallbackContext callbackContext) {
         this.duerBotHandler = new DuerBotHandler(callbackContext);
+
+        BotMessageListener.getInstance().addCallback(this.duerBotHandler);
+        BotSdk.getInstance().setDialogStateListener(this.duerBotHandler);
+
+        UiContextPayload payload = new UiContextPayload();
+        payload.setEnableGeneralUtterances(false);
+        BotSdk.getInstance().updateUiContext(payload);
+    }
+
+    public void removeDuerBotHandler(CallbackContext callbackContext) {
+        BotMessageListener.getInstance().removeCallback(this.duerBotHandler);
+        BotSdk.getInstance().setDialogStateListener(null);
     }
 
     public void speak(String txt) {
         BotSdk.getInstance().speak(txt, false);
     }
 
-    public void listen() {
-        BotMessageListener.getInstance().addCallback(this.duerBotHandler);
-        BotSdk.getInstance().setDialogStateListener(this.duerBotHandler);
-
-        UiContextPayload payload = new UiContextPayload();
-        payload.setEnableGeneralUtterances(false);
-        HashMap<String, String> params = new HashMap<>();
-        params.put("name", "地址");
-        params.put("type", "city");
-        payload.addHyperUtterance(BotConstants.INPUT_TEST_URL, null, "input", params);
-        BotSdk.getInstance().updateUiContext(payload);
-    }
 }
 
 class DuerBotHandler implements IBotIntentCallback, IDialogStateListener {
@@ -143,14 +143,7 @@ class DuerBotHandler implements IBotIntentCallback, IDialogStateListener {
     @Override
     public void onClickLink(String url, HashMap<String, String> paramMap) {
         Log.d(TAG, "url=" + url);
-        if (BotConstants.INPUT_TEST_URL.equals(url)) {
-            String content = paramMap.get("content");
-            if (content != null && callbackContext != null) {
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, content);
-                pluginResult.setKeepCallback(true);
-                callbackContext.sendPluginResult(pluginResult);
-            }
-        } else if (BotConstants.UNKNOWN_URL.equals((url))) {
+        if (BotConstants.UNKNOWN_URL.equals((url))) {
             String query = paramMap.get("query");
             if (query != null && callbackContext != null) {
                 Log.d(TAG, query);
@@ -173,11 +166,7 @@ class DuerBotHandler implements IBotIntentCallback, IDialogStateListener {
 }
 
 class BotConstants {
-    // UIControl用到的路由常量
-    public static final String INPUT_TEST_URL = "sdkdemo://inputtest/";
     public static final String UNKNOWN_URL = "http://sdk.bot.dueros.ai?action=unknown_utterance";
-
-    // 连接状态广播
     public static final String ACTION_REGISTER_SUCCESS = "com.baidu.duer.test_botsdk.register_success";
 
 }

@@ -7,10 +7,10 @@ module.exports = {
     speak: function (txt, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "DuerBotPlugin", "speak", [txt]);
     },
-    initDuerBotHandler: function (successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "DuerBotPlugin", "initDuerBotHandler", []);
+    addDuerBotHandler: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "DuerBotPlugin", "addDuerBotHandler", []);
     },
-    listen: function (successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "DuerBotPlugin", "listen", []);
+    removeDuerBotHandler: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "DuerBotPlugin", "removeDuerBotHandler", []);
     }
 };
