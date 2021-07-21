@@ -1,0 +1,9 @@
+repositories {
+    jcenter()
+    google()
+    maven{ url 'https://dueros.baidu.com/maven/repository/maven-releases/'}
+}
+
+dependencies {
+    implementation('com.baidu.duer.botsdk:bot-sdk-android:1.51.1')
+}

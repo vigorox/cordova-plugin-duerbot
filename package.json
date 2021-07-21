@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-duerbot",
+  "version": "0.1.0",
+  "description": "Cordova plugin for DuerBot",
+  "cordova": {
+    "id": "cordova-plugin-duerbot",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vigorox/cordova-plugin-duerbot.git"
+  },
+  "keywords": [
+    "cordova",
+    "plugin",
+    "baidu",
+    "dueros",
+    "duer",
+    "bot",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "Paul Hsu",
+  "license": "MIT"
+}

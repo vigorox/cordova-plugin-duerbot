@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android" id="com.liteputer.cordova.plugin.duerbot" version="0.1.0">
+
+  <name>DuerBot</name>
+  <description>Cordova DuerBot Plugin for Android</description>
+  <license>MIT</license>
+  <keywords>cordova,baidu,dueros,duer,bot</keywords>
+  <asset src="www/duerbot.js" target="js/duerbot.js"/>
+
+  <js-module src="www/duerbot.js" name="duerbot">
+    <clobbers target="duerbot" />
+  </js-module>
+
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="DuerBotPlugin">
+        <param name="android-package" value="com.liteputer.cordova.plugin.DuerBotPlugin"/>
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/DuerBotPlugin.java" target-dir="src/com/liteputer/cordova/plugin/"/>
+    <source-file src="src/android/BotMessageListener.java" target-dir="src/com/liteputer/cordova/plugin/"/>
+    <source-file src="src/android/BotSDKUtils.java" target-dir="src/com/liteputer/cordova/plugin/"/>
+    <source-file src="src/android/ContextUtil.java" target-dir="src/com/liteputer/cordova/plugin/"/>
+    <source-file src="src/android/IBotIntentCallback.java" target-dir="src/com/liteputer/cordova/plugin/"/>
+
+    <framework src="com.alibaba:fastjson:1.1.71.android" />
+    <framework src="com.android.support:support-v4:27.0.0" />
+    <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference"/>
+
+  </platform>
+
+</plugin>
