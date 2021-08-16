@@ -100,7 +100,7 @@ class DuerBot {
                         case BotConstants.ACTION_REGISTER_SUCCESS:
                             if (callbackContext != null) {
                                 PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, true);
-                                pluginResult.setKeepCallback(false);
+                                pluginResult.setKeepCallback(true);
                                 callbackContext.sendPluginResult(pluginResult);
                             }
                             isRegistered = true;
@@ -162,7 +162,7 @@ class DuerBotHandler implements IBotIntentCallback, IDialogStateListener {
             if (query != null && callbackContext != null) {
                 Log.d(TAG, query);
                 PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, query);
-                pluginResult.setKeepCallback(false);
+                pluginResult.setKeepCallback(true);
                 callbackContext.sendPluginResult(pluginResult);
             }
         }
