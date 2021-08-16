@@ -54,10 +54,22 @@ public class DuerBotPlugin extends CordovaPlugin {
             pluginresult.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginresult);
             return true;
-        } else if(action.equals("removeDuerBotHandler")) {
+        } else if (action.equals("removeDuerBotHandler")) {
             this.duerBot.removeDuerBotHandler(callbackContext);
             return true;
-        }else {
+        } else if (action.equals("isRegistered")) {
+            if (this.duerBot != null && this.duerBot.isRegistered == true) {
+                callbackContext.success();
+                ;
+            } else {
+                if (this.duerBot == null) {
+                    callbackContext.error("Duerbot is not inited yet!");
+                } else {
+                    callbackContext.error("Duerbot is not registered yet!");
+                }
+            }
+            return true;
+        } else {
             return false;
         }
     }
@@ -66,6 +78,7 @@ public class DuerBotPlugin extends CordovaPlugin {
 class DuerBot {
     private static final String TAG = "DuerBot";
     public DuerBotHandler duerBotHandler;
+    public Boolean isRegistered = false;
 
     public DuerBot(String botId, String signatureKey, Context context, CallbackContext callbackContext) {
         ContextUtil.setContext(context);
@@ -90,6 +103,7 @@ class DuerBot {
                                 pluginResult.setKeepCallback(false);
                                 callbackContext.sendPluginResult(pluginResult);
                             }
+                            isRegistered = true;
                             Log.i(TAG, "DuerBot init success");
                             break;
                         default:

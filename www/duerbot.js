@@ -12,5 +12,8 @@ module.exports = {
     },
     removeDuerBotHandler: function (successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "DuerBotPlugin", "removeDuerBotHandler", []);
+    },
+    isRegistered: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, 'DuerBotPlugin', "isRegistered");
     }
 };
