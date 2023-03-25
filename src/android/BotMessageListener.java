@@ -13,7 +13,8 @@ import com.liteputer.cordova.plugin.ContextUtil;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.content.LocalBroadcastManager;
+// import android.support.v4.content.LocalBroadcastManager;
+import android.x.core.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 

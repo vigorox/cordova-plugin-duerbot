@@ -9,8 +9,10 @@ import com.baidu.duer.botsdk.*;
 import com.baidu.duer.botsdk.BotSdk;
 import com.baidu.duer.botsdk.IBotMessageListener;
 
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.app.Fragment;
+// import android.support.v4.content.LocalBroadcastManager;
+// import android.support.v4.app.Fragment;
+import android.x.core.LocalBroadcastManager;
+import android.x.core.app.Fragment;
 import android.content.BroadcastReceiver;
 
 import java.util.ArrayList;

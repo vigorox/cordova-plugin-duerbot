@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-duerbot",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Cordova plugin for DuerBot",
   "cordova": {
     "id": "cordova-plugin-duerbot",
