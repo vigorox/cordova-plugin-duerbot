@@ -3,8 +3,10 @@ package com.liteputer.cordova.plugin;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+// import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+// import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * BotSDK相关工具方法
